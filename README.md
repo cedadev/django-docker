@@ -55,4 +55,10 @@ docker build -f Dockerfile.onbuild -t ${IMAGE}:${TAG}-onbuild --build-arg FROM_T
 # Optionally push to Docker Hub
 docker push ${IMAGE}:${TAG}
 docker push ${IMAGE}:${TAG}-onbuild
+
+# Optionally tag as latest and push to Docker Hub
+docker tag ${IMAGE}:${TAG} ${IMAGE}:latest
+docker tag ${IMAGE}:${TAG}-onbuild ${IMAGE}:latest-onbuild
+docker push ${IMAGE}:latest
+docker push ${IMAGE}:latest-onbuild
 ```
