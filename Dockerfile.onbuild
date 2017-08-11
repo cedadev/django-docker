@@ -1,0 +1,6 @@
+ARG FROM_TAG
+FROM cedadev/docker-gunicorn:$FROM_TAG
+
+# Install the application from the current working directory
+ONBUILD COPY . /application
+ONBUILD RUN /home/gunicorn/venv/bin/pip install /application
