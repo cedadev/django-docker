@@ -1,4 +1,4 @@
-# docker-gunicorn
+# docker-gunicorn
 
 This repository is used to build the
 [cedadev/docker-gunicorn](https://hub.docker.com/r/cedadev/docker-gunicorn/)
@@ -42,7 +42,7 @@ CMD ["python.path.to.wsgi:app"]
 ```
 
 
-## Building the images
+## Building the images
 
 To build the images, just run the following commands:
 
