@@ -5,3 +5,4 @@ group = 'gunicorn'
 accesslog = '-'
 errorlog = '-'
 loglevel = 'info'
+workers = 4

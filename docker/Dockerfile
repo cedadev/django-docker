@@ -18,11 +18,19 @@ USER gunicorn
 # Create a virtualenv for gunicorn owned by the gunicorn user
 RUN python3 -m venv /home/gunicorn/venv
 
-# Install gunicorn
-RUN /home/gunicorn/venv/bin/pip install gunicorn
+# Install gunicorn and Paste
+RUN /home/gunicorn/venv/bin/pip install gunicorn Paste PasteDeploy
 
 # Install gunicorn config file
 COPY gunicorn-config.py /home/gunicorn/conf/config.py
+
+# Install django_paste into the virtualenv
+COPY django_paste.py /home/gunicorn/venv/lib/python3.6/site-packages
+
+# Ensure gunicorn owns everything in it's home directory
+USER root
+RUN chown -R gunicorn:gunicorn /home/gunicorn/*
+USER gunicorn
 
 # Install startup script
 COPY entrypoint.sh /entrypoint.sh

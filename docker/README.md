@@ -30,8 +30,8 @@ RUN /home/gunicorn/venv/bin/pip install  \
       --no-deps -r /home/gunicorn/application/requirements.txt
 RUN /home/gunicorn/venv/bin/pip install --no-deps -e /home/gunicorn/application
 
-# This is the Python module name of the Django application
-CMD ["my_django_application"]
+# This is the Python module name of the Django settings to use
+CMD ["my_django_application.settings"]
 ```
 
 The `onbuild` version includes
@@ -48,8 +48,8 @@ application as a container is as simple as:
 ```Dockerfile
 FROM cedadev/django-docker:<tag>-onbuild
 
-# This is the Python module name of the Django application
-CMD ["my_django_application"]
+# This is the Python module name of the Django settings to use
+CMD ["my_django_application.settings"]
 ```
 
 
@@ -63,13 +63,13 @@ TAG=$(git describe --always)
 docker build -t ${IMAGE}:${TAG} .
 docker build -f Dockerfile.onbuild -t ${IMAGE}:${TAG}-onbuild --build-arg FROM_TAG=${TAG} .
 
+# Optionally tag as latest
+docker tag ${IMAGE}:${TAG} ${IMAGE}:latest
+docker tag ${IMAGE}:${TAG}-onbuild ${IMAGE}:latest-onbuild
+
 # Optionally push to Docker Hub
 docker push ${IMAGE}:${TAG}
 docker push ${IMAGE}:${TAG}-onbuild
-
-# Optionally tag as latest and push to Docker Hub
-docker tag ${IMAGE}:${TAG} ${IMAGE}:latest
-docker tag ${IMAGE}:${TAG}-onbuild ${IMAGE}:latest-onbuild
 docker push ${IMAGE}:latest
 docker push ${IMAGE}:latest-onbuild
 ```
