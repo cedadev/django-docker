@@ -78,7 +78,7 @@ if not DEBUG:
 import dj_database_url
 DATABASES = {
     (k[15:].lstrip('_').lower() or 'default'): dj_database_url.parse(v, con_max_age = 600)
-    for k, v in os.environ
+    for k, v in os.environ.items()
     if k.startswith('DJANGO_DATABASE')
 }
 # If no default database was provided, use an SQLite db in $HOME
