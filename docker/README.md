@@ -84,7 +84,7 @@ is started:
 | `DJANGO_SUPERUSER_USERNAME` | Required if `DJANGO_CREATE_SUPERUSER=1`. The username for the superuser. |
 | `DJANGO_SUPERUSER_EMAIL` | Required if `DJANGO_CREATE_SUPERUSER=1`. The email for the superuser. |
 | `DJANGO_SUPERUSER_EXTRA_ARGS` | Extra arguments for the `django-admin createsuperuser` command. |
-| `DJANGO_SUPERUSER_PASSWORD` | The password for the password. If not given, no password is set. |
+| `DJANGO_SUPERUSER_PASSWORD` | The password for the superuser. If not given, no password is set. |
 
 
 ## Building the base images
