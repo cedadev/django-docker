@@ -78,7 +78,7 @@ if not DEBUG:
 # DJANGO_DATABASE_USERDB would set the 'userdb' key in DATABASES
 import dj_database_url
 DATABASES = {
-    (k[15:].lstrip('_').lower() or 'default'): dj_database_url.parse(v, con_max_age = 600)
+    (k[15:].lstrip('_').lower() or 'default'): dj_database_url.parse(v, conn_max_age = 600)
     for k, v in os.environ.items()
     if k.startswith('DJANGO_DATABASE')
 }
