@@ -7,7 +7,33 @@ images on Docker Hub.
 These images can be used as a base for other images for running Django applications
 using Docker.
 
+When running your Django application using Docker, it is advisable to ensure that
+your containers can be fully configured using environment variables. The
+[django-docker Python package](../python) can be used to help with this.
+
+
+## Building an image for a Docker application
+
 For each tag in the repository, there are two variants: `<tag>` and `<tag>-onbuild`.
+
+The `onbuild` versions include
+[ONBUILD triggers](https://docs.docker.com/engine/reference/builder/#onbuild)
+that:
+
+1. Copy the contents of the directory containing the inheriting `Dockerfile` into
+the image
+2. Install the packages from `requirements.txt` using `pip install --no-deps`
+3. Install the application itself using `pip install --no-deps -e`
+
+This means that for a simple application, creating a `Dockerfile` to run that
+application as a container is as simple as:
+
+```Dockerfile
+FROM cedadev/django-docker:<tag>-onbuild
+
+# This is the Python module name of the Django settings to use
+CMD ["my_django_application.settings"]
+```
 
 When using the plain `<tag>` versions, the inheriting `Dockerfile` is responsible
 for installing the application to run:
@@ -34,26 +60,32 @@ RUN /home/gunicorn/venv/bin/pip install --no-deps -e /home/gunicorn/application
 CMD ["my_django_application.settings"]
 ```
 
-The `onbuild` version includes
-[ONBUILD instructions](https://docs.docker.com/engine/reference/builder/#onbuild)
-that:
 
-1. Copy the contents of the directory containing the inheriting `Dockerfile` into
-the image
-2. Install the packages from `requirements.txt` using `pip install --no-deps`
+## Running a Docker-ised Django application
 
-This means that for a simple application, creating a `Dockerfile` to run that
-application as a container is as simple as:
+Once a Docker image exists for your application, you can run it as follows:
 
-```Dockerfile
-FROM cedadev/django-docker:<tag>-onbuild
-
-# This is the Python module name of the Django settings to use
-CMD ["my_django_application.settings"]
+```bash
+docker run -p 8000:8000 <image>:<tag>
 ```
 
+Depending how your application is configured, this may not run straight away as
+some environment variables may be required to configure the container. Environment
+variables can be passed to the Docker container using `-e ENV_VAR=value`.
 
-## Building the images
+The following environment variables, if present, are used to configure how Django
+is started:
+
+| Variable | Notes |
+| --- | --- |
+| `DJANGO_CREATE_SUPERUSER` | Set this to `1` to create the specified superuser if they do not already exist. |
+| `DJANGO_SUPERUSER_USERNAME` | Required if `DJANGO_CREATE_SUPERUSER=1`. The username for the superuser. |
+| `DJANGO_SUPERUSER_EMAIL` | Required if `DJANGO_CREATE_SUPERUSER=1`. The email for the superuser. |
+| `DJANGO_SUPERUSER_EXTRA_ARGS` | Extra arguments for the `django-admin createsuperuser` command. |
+| `DJANGO_SUPERUSER_PASSWORD` | The password for the password. If not given, no password is set. |
+
+
+## Building the base images
 
 To build the images, just run the following commands:
 
