@@ -71,7 +71,9 @@ docker run -p 8000:8000 <image>:<tag>
 
 Depending how your application is configured, this may not run straight away as
 some environment variables may be required to configure the container. Environment
-variables can be passed to the Docker container using `-e ENV_VAR=value`.
+variables can be passed to the Docker container using `-e ENV_VAR=value`. Once
+the container has successfully started, your application will be available at
+`http://localhost:8000`.
 
 The following environment variables, if present, are used to configure how Django
 is started:
