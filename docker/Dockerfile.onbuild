@@ -1,0 +1,13 @@
+ARG FROM_TAG
+FROM cedadev/django-docker:$FROM_TAG
+
+# Install the application from the current working directory
+# NOTE: We have to switch to root and back to gunicorn in order to chown
+#       https://github.com/moby/moby/issues/6119
+ONBUILD USER root
+ONBUILD COPY . /home/gunicorn/application
+ONBUILD RUN chown -R gunicorn:gunicorn /home/gunicorn/application
+ONBUILD USER gunicorn
+ONBUILD RUN /home/gunicorn/venv/bin/pip install  \
+              --no-deps -r /home/gunicorn/application/requirements.txt
+ONBUILD RUN /home/gunicorn/venv/bin/pip install --no-deps -e /home/gunicorn/application
