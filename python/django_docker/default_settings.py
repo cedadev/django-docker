@@ -11,6 +11,7 @@ import os
 # Security settings
 if int(os.environ.get('DJANGO_DEBUG', '0')):
     DEBUG = True
+    ALLOWED_HOSTS = []
 else:
     DEBUG = False
     SECURE_CONTENT_TYPE_NOSNIFF = True
