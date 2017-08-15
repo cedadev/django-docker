@@ -80,7 +80,7 @@ is started:
 
 | Variable | Notes |
 | --- | --- |
-| `DJANGO_CREATE_SUPERUSER` | Set this to `1` to create the specified superuser if they do not already exist. |
+| `DJANGO_CREATE_SUPERUSER` | Set this to `1` to create the specified superuser if they do not already exist. If not set, no superuser is created. |
 | `DJANGO_SUPERUSER_USERNAME` | Required if `DJANGO_CREATE_SUPERUSER=1`. The username for the superuser. |
 | `DJANGO_SUPERUSER_EMAIL` | Required if `DJANGO_CREATE_SUPERUSER=1`. The email for the superuser. |
 | `DJANGO_SUPERUSER_EXTRA_ARGS` | Extra arguments for the `django-admin createsuperuser` command. |
