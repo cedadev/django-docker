@@ -22,7 +22,7 @@ RUN python3 -m venv /home/gunicorn/venv
 RUN /home/gunicorn/venv/bin/pip install gunicorn
 
 # Install gunicorn config file
-RUN gunicorn-config.py /home/gunicorn/conf/config.py
+COPY gunicorn-config.py /home/gunicorn/conf/config.py
 
 # Install startup script
 COPY entrypoint.sh /entrypoint.sh
