@@ -5,6 +5,12 @@ DJANGO_ADMIN=$HOME/venv/bin/django-admin
 # Configure settings module
 export DJANGO_SETTINGS_MODULE="$1"
 
+# If the DJANGO_LOGGING_SLACK_WEBHOOK environment variable is set, install the
+# cedadev-slack-logging-handler package
+if [ -n "$DJANGO_LOGGING_SLACK_WEBHOOK" ]; then
+  $HOME/venv/bin/pip install https://github.com/cedadev/slack-logging-handler.git
+fi
+
 # Run database migrations
 echo "[INFO] Running database migrations"
 $DJANGO_ADMIN migrate --no-input > /dev/null

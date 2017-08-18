@@ -32,8 +32,8 @@ setup(
     ],
     keywords='django docker',
     packages = find_packages(),
-    install_requires = [
-        'cedadev-slack-logging-handler',
-        'dj-database-url',
-    ]
+    install_requires = ['dj-database-url'],
+    extras_require = {
+        'slack': ['cedadev-slack-logging-handler'],
+    },
 )

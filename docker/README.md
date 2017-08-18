@@ -1,4 +1,4 @@
-# Docker images
+# django-docker Docker images
 
 This Docker configuration is used to build the
 [cedadev/django-docker](https://hub.docker.com/r/cedadev/django-docker/)
