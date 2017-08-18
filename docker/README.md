@@ -93,7 +93,7 @@ To build the images, just run the following commands:
 
 ```bash
 IMAGE=cedadev/django-docker
-TAG=$(git describe --always)
+TAG=$(git describe --long --tags --always)
 docker build -t ${IMAGE}:${TAG} .
 docker build -f Dockerfile.onbuild -t ${IMAGE}:${TAG}-onbuild --build-arg FROM_TAG=${TAG} .
 
